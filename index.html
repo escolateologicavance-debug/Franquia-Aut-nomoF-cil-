@@ -6,30 +6,78 @@
     <title>Anuidade AutônomoFácil</title>
     <link rel="manifest" href="manifest.json">
     <style>
-        body { font-family: sans-serif; background: #0b1a2e; color: #fff; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .box { background: #1a2f4a; padding: 2rem; border-radius: 15px; width: 90%; max-width: 450px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .box img { width: 120px; height: auto; margin-bottom: 1rem; }
-        h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-        .valor { font-size: 1.2rem; color: #00ffcc; margin-bottom: 1.5rem; }
-        input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 8px; border: none; box-sizing: border-box; font-size: 16px; }
-        button { background: #00ffcc; padding: 18px; border: none; border-radius: 8px; width: 100%; font-weight: bold; font-size: 16px; color: #0b1a2e; cursor: pointer; margin-top: 10px; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: #0b1a2e; 
+            color: #fff; 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            padding: 20px;
+        }
+        .container { 
+            width: 100%; 
+            max-width: 450px; 
+            text-align: center; 
+        }
+        .flyer-img { 
+            width: 100%; 
+            border-radius: 15px; 
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .box { 
+            background: #1a2f4a; 
+            padding: 25px; 
+            border-radius: 20px; 
+            border: 1px solid #00ffcc;
+        }
+        h1 { font-size: 1.3rem; margin: 0; color: #fff; }
+        .valor { font-size: 1.5rem; color: #00ffcc; font-weight: bold; margin: 10px 0 20px 0; }
+        input { 
+            width: 100%; 
+            padding: 15px; 
+            margin: 8px 0; 
+            border-radius: 10px; 
+            border: none; 
+            box-sizing: border-box; 
+            background: #0b1a2e; 
+            color: #fff;
+        }
+        button { 
+            background: #00ffcc; 
+            padding: 18px; 
+            border: none; 
+            border-radius: 10px; 
+            width: 100%; 
+            font-weight: bold; 
+            font-size: 1.1rem; 
+            color: #0b1a2e; 
+            cursor: pointer; 
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
 
-<div class="box">
-    <img src="logo-192.png" alt="Logo">
-    <h1>Anuidade AutônomoFácil</h1>
-    <p class="valor">Valor: R$ 79,00</p>
-    
-    <input type="text" id="nome" placeholder="Seu Nome Completo">
-    <input type="tel" id="whatsapp" placeholder="Seu WhatsApp">
-    <button onclick="alert('Processando...')">PAGAR COM PIX</button>
+<div class="container">
+    <img src="1000386264.png" alt="Flyer Oportunidade" class="flyer-img">
+
+    <div class="box">
+        <h1>Anuidade AutônomoFácil</h1>
+        <p class="valor">Valor: R$ 79,00</p>
+        
+        <input type="text" id="nome" placeholder="Seu Nome Completo">
+        <input type="tel" id="whatsapp" placeholder="Seu WhatsApp">
+        <button onclick="alert('Conectando ao pagamento...')">PAGAR COM PIX</button>
+    </div>
 </div>
 
 <script>
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').then(() => console.log('Service Worker registrado.'));
+        navigator.serviceWorker.register('sw.js');
     }
 </script>
 </body>
