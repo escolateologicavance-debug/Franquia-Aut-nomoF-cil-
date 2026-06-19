@@ -1,62 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Sorteio AutônomoFácil</title>
-<style>
-body { font-family: sans-serif; background: #0b1a2e; color: #fff; text-align: center; padding: 20px; }
-.box { background: #1a2f4a; padding: 20px; border-radius: 10px; max-width: 400px; margin: auto; }
-input { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
-button { background: #00ffcc; padding: 15px; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; }
-#pixSection { display: none; margin-top: 20px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Anuidade AutônomoFácil</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body { font-family: sans-serif; background: #0b1a2e; color: #fff; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .box { background: #1a2f4a; padding: 2rem; border-radius: 15px; width: 90%; max-width: 450px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .box img { width: 120px; height: auto; margin-bottom: 1rem; }
+        h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .valor { font-size: 1.2rem; color: #00ffcc; margin-bottom: 1.5rem; }
+        input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 8px; border: none; box-sizing: border-box; font-size: 16px; }
+        button { background: #00ffcc; padding: 18px; border: none; border-radius: 8px; width: 100%; font-weight: bold; font-size: 16px; color: #0b1a2e; cursor: pointer; margin-top: 10px; }
+    </style>
 </head>
 <body>
 
 <div class="box">
-<img src="1000377207.png" width="100">
-<h1>Anuidade AutônomoFácil</h1>
-<p>Valor: R$ 79,00</p>
-
-<div id="formSection">
-<input type="text" id="nome" placeholder="Seu Nome">
-<input type="tel" id="whatsapp" placeholder="Seu WhatsApp">
-<button onclick="gerarPagamento()">PAGAR COM PIX</button>
-</div>
-
-<div id="pixSection">
-<p>Copie o código abaixo para pagar:</p>
-<textarea id="copiaCola" readonly style="width: 100%; height: 80px;"></textarea>
-<button onclick="copiarTexto()">COPIAR CÓDIGO PIX</button>
-<p><small>Assim que pagar, seu número da sorte será enviado ao WhatsApp!</small></p>
-</div>
+    <img src="logo-192.png" alt="Logo">
+    <h1>Anuidade AutônomoFácil</h1>
+    <p class="valor">Valor: R$ 79,00</p>
+    
+    <input type="text" id="nome" placeholder="Seu Nome Completo">
+    <input type="tel" id="whatsapp" placeholder="Seu WhatsApp">
+    <button onclick="alert('Processando...')">PAGAR COM PIX</button>
 </div>
 
 <script>
-async function gerarPagamento() {
-const nome = document.getElementById('nome').value;
-const whatsapp = document.getElementById('whatsapp').value;
-
-// 1. Aqui você chamaria sua "Cloud Function" (ou n8n webhook)
-// que comunica com o Mercado Pago.
-const response = await fetch('URL_DO_SEU_WEBHOOK_N8N', {
-method: 'POST',
-body: JSON.stringify({ nome, whatsapp, valor: 79.00 })
-});
-
-const data = await response.json();
-
-// 2. Exibe o código gerado pelo Mercado Pago
-document.getElementById('copiaCola').value = data.pix_copia_cola;
-document.getElementById('formSection').style.display = 'none';
-document.getElementById('pixSection').style.display = 'block';
-}
-
-function copiarTexto() {
-document.getElementById('copiaCola').select();
-document.execCommand('copy');
-alert('Código Pix copiado!');
-}
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').then(() => console.log('Service Worker registrado.'));
+    }
 </script>
 </body>
 </html>
