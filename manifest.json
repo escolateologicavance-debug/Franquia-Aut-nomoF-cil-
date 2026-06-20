@@ -1,6 +1,12 @@
 {
-  "name": "Anuidade AutônomoFácil",
+  "name": "AutônomoFácil",
   "short_name": "AutônomoFácil",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a0f1f",
+  "theme_color": "#00c853",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "logo-192.png",
@@ -12,10 +18,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "start_url": "/",
-  "scope": "/",
-  "display": "standalone",
-  "background_color": "#0b1a2e",
-  "theme_color": "#00ffcc"
+  ]
 }
