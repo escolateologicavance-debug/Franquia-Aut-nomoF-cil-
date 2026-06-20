@@ -71,11 +71,57 @@
         
         <input type="text" id="nome" placeholder="Seu Nome Completo">
         <input type="tel" id="whatsapp" placeholder="Seu WhatsApp">
-        <button onclick="alert('Conectando ao pagamento...')">PAGAR COM PIX</button>
+        <button id="btnPagar">PAGAR COM PIX</button>
     </div>
 </div>
 
 <script>
+    // Configurações do Supabase
+    const SUPABASE_URL = "https://xzhcujtqrfesfcfbpmsi.supabase.co";
+    const SUPABASE_KEY = "Sb_publishable_j-rMLNlkBhsi2nK6EVO8cg_fJJnI8-V";
+
+    document.getElementById('btnPagar').addEventListener('click', async () => {
+        const nome = document.getElementById('nome').value;
+        const whatsapp = document.getElementById('whatsapp').value;
+
+        if (!nome || !whatsapp) {
+            alert("Por favor, preencha todos os campos.");
+            return;
+        }
+
+        const btn = document.getElementById('btnPagar');
+        btn.innerText = "Salvando...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/pagamentos_sorteio`, {
+                method: "POST",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${SUPABASE_KEY}`,
+                    "Content-Type": "application/json",
+                    "Prefer": "return=representation"
+                },
+                body: JSON.stringify({
+                    nome: nome,
+                    whatsapp: whatsapp,
+                    status: "Pendente"
+                })
+            });
+
+            if (response.ok) {
+                alert("Dados registrados! Agora você será redirecionado para o pagamento.");
+                // Aqui você colocaria a lógica de abrir o checkout do Pix
+            } else {
+                throw new Error("Erro ao salvar no banco.");
+            }
+        } catch (error) {
+            alert("Erro: " + error.message);
+            btn.innerText = "PAGAR COM PIX";
+            btn.disabled = false;
+        }
+    });
+
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js');
     }
