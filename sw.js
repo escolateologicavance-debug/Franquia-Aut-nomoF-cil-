@@ -1,4 +1,4 @@
-const CACHE_NAME = 'autonomo-facil-v2';
+const CACHE_NAME = 'autonomo-facil-v3';
 
 const ASSETS = [
   './',
@@ -17,24 +17,12 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
-      )
-    )
-  );
-  self.clients.claim();
+  event.waitUntil(self.clients.claim());
 });
 
 self.addEventListener('fetch', event => {
   event.respondWith(
     fetch(event.request)
-      .then(response => response)
       .catch(() => caches.match(event.request))
   );
 });
