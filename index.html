@@ -137,7 +137,7 @@
     });
 
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js');
+        navigator.serviceWorker.register('./sw.js');
     }
         async function salvarEcopiar() {
     const nome = document.getElementById('nome').value;
