@@ -110,13 +110,13 @@
             });
 
             if (response.ok) {
-                alert("Dados registrados! Agora você será redirecionado para o pagamento.");
-                // Aqui você colocaria a lógica de abrir o checkout do Pix
+                // Redireciona para o link do Mercado Pago
+                window.location.href = "https://mpago.la/1v8LVVf";
             } else {
                 throw new Error("Erro ao salvar no banco.");
             }
         } catch (error) {
-            alert("Erro: " + error.message);
+            alert("Erro ao processar: " + error.message);
             btn.innerText = "PAGAR COM PIX";
             btn.disabled = false;
         }
