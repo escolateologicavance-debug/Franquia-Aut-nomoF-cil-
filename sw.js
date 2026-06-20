@@ -1,6 +1,6 @@
 self.addEventListener('install', (e) => {
 e.waitUntil(
-caches.open('autonomo-facil-v1').then((cache) => {
+caches.open('autonomo-facil-v2').then((cache) => {
 return cache.addAll(['/', 'index.html', 'manifest.json', 'logo-192.png']);
 })
 );
