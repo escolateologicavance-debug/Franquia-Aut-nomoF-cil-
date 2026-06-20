@@ -74,7 +74,6 @@
         <button id="btnPagar">PAGAR COM PIX</button>
     </div>
 </div>
-
 <script>
     // Configurações do Supabase
     const SUPABASE_URL = "https://xzhcujtqrfesfcfbpmsi.supabase.co";
@@ -109,14 +108,18 @@
                 })
             });
 
+            const data = await response.json();
+
             if (response.ok) {
                 // Redireciona para o link do Mercado Pago
                 window.location.href = "https://mpago.la/1v8LVVf";
             } else {
-                throw new Error("Erro ao salvar no banco.");
+                // Se der erro, vamos ver o que o Supabase diz
+                console.error("Erro do servidor:", data);
+                throw new Error(data.message || "Erro desconhecido ao salvar no banco.");
             }
         } catch (error) {
-            alert("Erro ao processar: " + error.message);
+            alert("Erro: " + error.message);
             btn.innerText = "PAGAR COM PIX";
             btn.disabled = false;
         }
@@ -126,5 +129,7 @@
         navigator.serviceWorker.register('sw.js');
     }
 </script>
+    
+
 </body>
 </html>
