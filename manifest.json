@@ -1,8 +1,8 @@
 {
   "name": "AutônomoFácil",
   "short_name": "AutônomoFácil",
-  "start_url": "./anuidade.html",
-  "scope": "./",
+  "start_url": "/Franquia-Aut-nomoF-cil-/index.html",
+  "scope": "/Franquia-Aut-nomoF-cil-/",
   "display": "standalone",
   "background_color": "#0b1a2e",
   "theme_color": "#00ffcc",
