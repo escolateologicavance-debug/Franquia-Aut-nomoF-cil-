@@ -74,9 +74,10 @@
         <button id="btnPagar">PAGAR COM PIX</button>
     </div>
 </div>
+
 <script>
-    // Configurações do Supabase
-    const SUPABASE_URL = "https://xzhcujtqrfesfcfbpmsi.supabase.co/rest/v1";
+    // Configurações do Supabase (URL base correta)
+    const SUPABASE_URL = "https://xzhcujtqrfesfcfbpmsi.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6aGN1anRxcmZlc2ZjZmJwbXNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MzM1NDgsImV4cCI6MjA5NjEwOTU0OH0.eQS1iqV2WlJJfVkujk2y-b4mIDnnLzyFLpz4pOmjQeU";
 
     document.getElementById('btnPagar').addEventListener('click', async () => {
@@ -93,6 +94,7 @@
         btn.disabled = true;
 
         try {
+            // URL montada corretamente com o caminho completo da API
             const response = await fetch(`${SUPABASE_URL}/rest/v1/pagamentos_sorteio`, {
                 method: "POST",
                 headers: {
@@ -111,12 +113,10 @@
             const data = await response.json();
 
             if (response.ok) {
-                // Redireciona para o link do Mercado Pago
                 window.location.href = "https://mpago.la/1v8LVVf";
             } else {
-                // Se der erro, vamos ver o que o Supabase diz
                 console.error("Erro do servidor:", data);
-                throw new Error(data.message || "Erro desconhecido ao salvar no banco.");
+                throw new Error(data.message || "Erro ao salvar no banco.");
             }
         } catch (error) {
             alert("Erro: " + error.message);
@@ -129,7 +129,6 @@
         navigator.serviceWorker.register('sw.js');
     }
 </script>
-    
 
 </body>
 </html>
