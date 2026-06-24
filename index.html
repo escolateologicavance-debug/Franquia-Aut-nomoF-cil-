@@ -182,6 +182,24 @@
     document.execCommand("copy");
     alert("Chave Pix copiada! Seus dados foram registrados. Agora basta colar no seu banco.");
 }
+    
+// Função que libera o botão quando você confirma que a pessoa pagou
+function liberarBotaoPagante() {
+    const btnT = document.getElementById('btnTestemunho');
+    btnT.disabled = false;
+    btnT.style.background = "#00ffcc";
+    btnT.style.color = "#0b1a2e";
+    btnT.style.cursor = "pointer";
+    btnT.style.opacity = "1";
+    btnT.onclick = () => document.getElementById('modalTestemunho').style.display = 'block';
+}
+
+// Lógica de clique para quem ainda não pagou
+document.getElementById('btnTestemunho').addEventListener('click', function() {
+    if (this.disabled) {
+        alert("Pague primeiro clicando no botão acima: Pagar com Pix.");
+    }
+});
 
 </script>
 <div id="modalRegulamento" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:1000; padding:20px; overflow-y:auto; box-sizing:border-box;">
@@ -191,7 +209,7 @@
             <p>1. Esta ação tem caráter estritamente promocional, cujo objetivo é 
                oferecer um serviço de valor prático para o profissional, vinculada à assinatura anual do aplicativo AutônomoFácil. A participação no sorteio é uma cortesia concedida aos assinantes ativos, sem qualquer cobrança adicional ou valor extra pelo "Número da Sorte".</p>
             <p>2. Participantes devem ser pessoas físicas, maiores de 18 anos, profissionais autônomos na área de abrangência. O direito ao "Número da Sorte" é conferido exclusivamente mediante a confirmação do pagamento da anuidade de R$ 79,00.</p>
-            <p>3. A campanha visa atingir, no mínimo, 200 assinaturas. Após o alcance desta meta, será definida a data do sorteio baseada na extração da Loteria Federal. Os números são válidos apenas para assinaturas com pagamento processado e ativo.</p>
+            <p>3. A campanha visa atingir, no mínimo, 400 assinaturas. Após o alcance desta meta, será definida a data do sorteio baseada na extração da Loteria Federal. Os números são válidos apenas para assinaturas com pagamento processado e ativo.</p>
             <p>4. O número contemplado será obtido pela extração da Loteria Federal. Caso o número obtido exceda o total de participantes, aplica-se a busca sequencial ascendente até encontrar o primeiro número participante.</p>
             <p>5. O prêmio é 01 Motocicleta Honda Fan 125, a ser entregue em Itanhangá-MT. O ganhador, independentemente da cidade de residência, deverá retirar o prêmio obrigatoriamente neste município, sendo os custos de deslocamento de sua inteira responsabilidade.</p>
             <p>6. Exclusão: Serão automaticamente excluídos assinaturas estornadas ou canceladas. Fica eleito o foro de Tapurah-MT. Caso a Loteria Federal não ocorra, será utilizada a extração imediatamente posterior.</p>
@@ -207,11 +225,14 @@
     <div style="background:#1a2f4a; padding:20px; border-radius:15px; max-width:450px; margin:auto; border: 1px solid #00ffcc;">
         <h2 style="color:#00ffcc; font-size: 1.2rem;">Sua jornada de superação merece ser reconhecida.</h2>
         <textarea id="textoTestemunho" placeholder="Conte sua história aqui (mínimo 500 caracteres)..." style="width:100%; height:150px; border-radius:10px; margin: 10px 0; padding: 10px;"></textarea>
-        <input type="text" id="dadosTestemunhas" placeholder="Dois contatos com DDD (Testemunhas)">
-        <button id="btnEnviarTestemunho" style="background:#00ffcc; color:#0b1a2e;">ENVIAR TESTEMUNHO</button>
-        <button onclick="document.getElementById('modalTestemunho').style.display='none'" style="background:transparent; border:1px solid #fff; color:#fff; margin-top: 10px;">FECHAR</button>
+        <input type="text" id="dadosTestemunhas" placeholder="Dois contatos com DDD (Testemunhas)" style="width:100%; padding:10px; margin-bottom:10px; border-radius:5px; border:none; box-sizing:border-box;">
+        
+        <button id="btnEnviarTestemunho" style="background:#00ffcc; color:#0b1a2e; padding:10px; width:100%; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">ENVIAR TESTEMUNHO</button>
+        
+        <button onclick="document.getElementById('modalTestemunho').style.display='none'" style="background:transparent; border:1px solid #fff; color:#fff; padding:10px; width:100%; margin-top:10px; border-radius:5px; cursor:pointer;">FECHAR</button>
     </div>
 </div>
+
 
 </body>
 </html>
