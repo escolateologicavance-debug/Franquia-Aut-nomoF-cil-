@@ -4,275 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Anuidade AutônomoFácil</title>
-    <link rel="manifest" href="manifest.json">
-
-<link rel="icon" type="image/png" sizes="192x192" href="logo-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="logo-512.png">
-   
-    <style>
-        body { 
-            font-family: 'Segoe UI', sans-serif; 
-            background: #0b1a2e; 
-            color: #fff; 
-            margin: 0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            padding: 20px;
-        }
-        .container { 
-            width: 100%; 
-            max-width: 450px; 
-            text-align: center; 
-        }
-        .flyer-img { 
-            width: 100%; 
-            border-radius: 15px; 
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .box { 
-            background: #1a2f4a; 
-            padding: 25px; 
-            border-radius: 20px; 
-            border: 1px solid #00ffcc;
-        }
-        h1 { font-size: 1.3rem; margin: 0; color: #fff; }
-        .valor { font-size: 1.5rem; color: #00ffcc; font-weight: bold; margin: 10px 0 20px 0; }
-        input { 
-            width: 100%; 
-            padding: 15px; 
-            margin: 8px 0; 
-            border-radius: 10px; 
-            border: none; 
-            box-sizing: border-box; 
-            background: #0b1a2e; 
-            color: #fff;
-        }
-        button { 
-            background: #00ffcc; 
-            padding: 18px; 
-            border: none; 
-            border-radius: 10px; 
-            width: 100%; 
-            font-weight: bold; 
-            font-size: 1.1rem; 
-            color: #0b1a2e; 
-            cursor: pointer; 
-            margin-top: 15px;
-        }
-    </style>
+    <!-- ... (Mantenha o seu CSS e meta tags aqui) ... -->
 </head>
 <body>
 
 <div class="container">
     <img src="logo-192.png" alt="Flyer Oportunidade" class="flyer-img">
-
     <div class="box">
         <h1>Anuidade AutônomoFácil</h1>
         <p class="valor">Valor: R$ 79,00</p>
-        
         <input type="text" id="nome" placeholder="Seu Nome Completo">
         <input type="tel" id="whatsapp" placeholder="Seu WhatsApp">
         <button id="btnPagar">PAGAR COM PIX</button>
-        <!-- Área de suporte Pix -->
-<div id="areaPix" style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
-    <p style="color: #333; font-size: 0.9rem;">Se o botão acima falhar, use nossa chave Pix manual:</p>
-    <textarea id="pixCode" readonly style="width:100%; height:50px; font-size: 12px;">00020126520014br.gov.bcb.pix0130escolateologicavance@gmail.com520400005303986540579.005802BR5910KOISAETALL6008Itanhang62250521mpqrinter16503033402263040941</textarea>
-    
-    <button onclick="salvarEcopiar()" style="width:100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Copiar Chave Pix</button>
+        <!-- ... (Mantenha sua área Pix e botões aqui) ... -->
+        <button id="btnTestemunho" style="background: #444; color: #aaa; cursor: not-allowed;" disabled>CONTE-NOS SEU TESTEMUNHO</button>
+    </div>
 </div>
-<p style="font-size: 0.8rem; margin-top: 15px; color: #ccc;">
-    Ao ativar, você concorda com nossos Termos. 
-    <span onclick="document.getElementById('modalRegulamento').style.display='block'" style="color:#00ffcc; text-decoration:underline; cursor:pointer;">Leia o Regulamento aqui.</span>
-</p>
-        <button id="btnTestemunho" style="background: #444; color: #aaa; cursor: not-allowed;" disabled>
-    CONTE-NOS SEU TESTEMUNHO
-</button>
 
-
+<!-- Modal Testemunho -->
+<div id="modalTestemunho" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; padding:20px; overflow-y:auto;">
+    <div style="background:#1a2f4a; padding:20px; border-radius:15px; max-width:450px; margin:auto; border: 1px solid #00ffcc;">
+        <h2 style="color:#00ffcc; font-size: 1.2rem;">Sua jornada merece ser reconhecida.</h2>
+        <textarea id="textoTestemunho" placeholder="Conte sua história (mínimo 500 caracteres)..." style="width:100%; height:150px; border-radius:10px; margin: 10px 0; padding: 10px;"></textarea>
+        <button id="btnEnviarTestemunho" style="background:#00ffcc; color:#0b1a2e; padding:10px; width:100%;">ENVIAR</button>
+        <button onclick="document.getElementById('modalTestemunho').style.display='none'" style="background:transparent; border:1px solid #fff; color:#fff; width:100%; margin-top:10px;">FECHAR</button>
+    </div>
 </div>
 
 <script>
-    // Configurações do Supabase (URL base correta)
     const SUPABASE_URL = "https://xzhcujtqrfesfcfbpmsi.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6aGN1anRxcmZlc2ZjZmJwbXNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MzM1NDgsImV4cCI6MjA5NjEwOTU0OH0.eQS1iqV2WlJJfVkujk2y-b4mIDnnLzyFLpz4pOmjQeU";
 
+    // Lógica do botão pagar
     document.getElementById('btnPagar').addEventListener('click', async () => {
-        const nome = document.getElementById('nome').value;
-        const whatsapp = document.getElementById('whatsapp').value;
-
-        if (!nome || !whatsapp) {
-            alert("Por favor, preencha todos os campos.");
-            return;
-        }
-
-        const btn = document.getElementById('btnPagar');
-        btn.innerText = "Salvando...";
-        btn.disabled = true;
-
-        try {
-            // URL montada corretamente com o caminho completo da API
-            const response = await fetch(`${SUPABASE_URL}/rest/v1/pagamentos_sorteio`, {
-                method: "POST",
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization": `Bearer ${SUPABASE_KEY}`,
-                    "Content-Type": "application/json",
-                    "Prefer": "return=representation"
-                },
-                body: JSON.stringify({
-                    nome: nome,
-                    whatsapp: whatsapp,
-                    status: "Pendente"
-                })
-            });
-
-            const data = await response.json();
-
-                       if (response.ok) {
-                // A linha abaixo substitui a anterior para incluir o status
-                window.location.href = "https://mpago.la/2FzBW7K?status=sucesso";
-            } else {
-
-                console.error("Erro do servidor:", data);
-                throw new Error(data.message || "Erro ao salvar no banco.");
-            }
-        } catch (error) {
-            alert("Erro: " + error.message);
-            btn.innerText = "PAGAR COM PIX";
-            btn.disabled = false;
-        }
+        // ... (Seu código de fetch do Supabase aqui) ...
+        window.location.href = "https://mpago.la/2FzBW7K?status=sucesso";
     });
 
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js');
-    }
-        async function salvarEcopiar() {
-    const nome = document.getElementById('nome').value;
-    const whatsapp = document.getElementById('whatsapp').value;
-
-    if (!nome || !whatsapp) {
-        alert("Por favor, preencha seu Nome e WhatsApp antes de copiar a chave.");
-        return;
+    // Função que libera tudo
+    function liberarBotaoPagante() {
+        const btnT = document.getElementById('btnTestemunho');
+        btnT.disabled = false;
+        btnT.style.background = "#00ffcc";
+        btnT.style.color = "#0b1a2e";
+        btnT.style.cursor = "pointer";
+        btnT.onclick = () => document.getElementById('modalTestemunho').style.display = 'block';
     }
 
-    // Registra a intenção no Supabase antes de copiar
-    try {
-        await fetch(`${SUPABASE_URL}/rest/v1/pagamentos_sorteio`, {
-            method: "POST",
-            headers: {
-                "apikey": SUPABASE_KEY,
-                "Authorization": `Bearer ${SUPABASE_KEY}`,
-                "Content-Type": "application/json",
-                "Prefer": "return=representation"
-            },
-            body: JSON.stringify({
-                nome: nome,
-                whatsapp: whatsapp,
-                status: "Manual" // Indica que o cliente escolheu o Pix manual
-            })
-        });
-    } catch (error) {
-        console.error("Erro ao registrar no Supabase:", error);
-    }
-
-    // Copia o código
-    const copyText = document.getElementById("pixCode");
-    copyText.select();
-    document.execCommand("copy");
-    alert("Chave Pix copiada! Seus dados foram registrados. Agora basta colar no seu banco.");
-}
-    
-// Função que libera o botão quando você confirma que a pessoa pagou
-function liberarBotaoPagante() {
-    const btnT = document.getElementById('btnTestemunho');
-    btnT.disabled = false;
-    btnT.style.background = "#00ffcc";
-    btnT.style.color = "#0b1a2e";
-    btnT.style.cursor = "pointer";
-    btnT.style.opacity = "1";
-    btnT.onclick = () => document.getElementById('modalTestemunho').style.display = 'block';
-}
-
-// Lógica de clique para quem ainda não pagou
-document.getElementById('btnTestemunho').addEventListener('click', function() {
-    if (this.disabled) {
-        alert("Pague primeiro clicando no botão acima: Pagar com Pix.");
-    }
-});
-
-
-<div id="modalRegulamento" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:1000; padding:20px; overflow-y:auto; box-sizing:border-box;">
-    <div style="background:#1a2f4a; padding:20px; border-radius:15px; max-width:500px; margin:auto; border: 1px solid #00ffcc;">
-        <h2 style="color:#00ffcc;">Regulamento</h2>
-        <div style="font-size: 0.9rem; text-align: left; margin-bottom: 20px; color: #fff; line-height: 1.5;">
-            <p>1. Esta ação tem caráter estritamente promocional, cujo objetivo é 
-               oferecer um serviço de valor prático para o profissional, vinculada à assinatura anual do aplicativo AutônomoFácil. A participação no sorteio é uma cortesia concedida aos assinantes ativos, sem qualquer cobrança adicional ou valor extra pelo "Número da Sorte".</p>
-            <p>2. Participantes devem ser pessoas físicas, maiores de 18 anos, profissionais autônomos na área de abrangência. O direito ao "Número da Sorte" é conferido exclusivamente mediante a confirmação do pagamento da anuidade de R$ 79,00.</p>
-            <p>3. A campanha visa atingir, no mínimo, 400 assinaturas. Após o alcance desta meta, será definida a data do sorteio baseada na extração da Loteria Federal. Os números são válidos apenas para assinaturas com pagamento processado e ativo.</p>
-            <p>4. O número contemplado será obtido pela extração da Loteria Federal. Caso o número obtido exceda o total de participantes, aplica-se a busca sequencial ascendente até encontrar o primeiro número participante.</p>
-            <p>5. O prêmio é 01 Motocicleta Honda Fan 125, a ser entregue em Itanhangá-MT. O ganhador, independentemente da cidade de residência, deverá retirar o prêmio obrigatoriamente neste município, sendo os custos de deslocamento de sua inteira responsabilidade.</p>
-            <p>6. Exclusão: Serão automaticamente excluídos assinaturas estornadas ou canceladas. Fica eleito o foro de Tapurah-MT. Caso a Loteria Federal não ocorra, será utilizada a extração imediatamente posterior.</p>
-            <p>7. *Cessão de Imagem: *Ao participar desta promoção, o usuário autoriza, de forma gratuita e definitiva, o uso de sua imagem, nome e voz, em fotos, vídeos e materiais publicitários vinculados ao AutônomoFácil, para fins de divulgação, sem direito a remuneração ou reivindicações de direito de imagem.</p>
-        </div>
-        <button onclick="document.getElementById('modalRegulamento').style.display='none'" style="background:#00ffcc; color:#0b1a2e; padding:10px; border:none; border-radius:5px; width:100%; cursor:pointer; font-weight:bold;">Fechar</button>
-    </div>
-</div>
-        <button onclick="document.getElementById('modalRegulamento').style.display='none'" style="background:#00ffcc; color:#0b1a2e; padding:10px; border:none; border-radius:5px; width:100%;">Fechar</button>
-    </div>
-</div>
-<div id="modalTestemunho" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; padding:20px; overflow-y:auto;">
-    <div style="background:#1a2f4a; padding:20px; border-radius:15px; max-width:450px; margin:auto; border: 1px solid #00ffcc;">
-        <h2 style="color:#00ffcc; font-size: 1.2rem;">Sua jornada de superação merece ser reconhecida.</h2>
-        <textarea id="textoTestemunho" placeholder="Conte sua história aqui (mínimo 500 caracteres)..." style="width:100%; height:150px; border-radius:10px; margin: 10px 0; padding: 10px;"></textarea>
-        <input type="text" id="dadosTestemunhas" placeholder="Dois contatos com DDD (Testemunhas)" style="width:100%; padding:10px; margin-bottom:10px; border-radius:5px; border:none; box-sizing:border-box;">
-        
-        <button id="btnEnviarTestemunho" style="background:#00ffcc; color:#0b1a2e; padding:10px; width:100%; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">ENVIAR TESTEMUNHO</button>
-        
-        <button onclick="document.getElementById('modalTestemunho').style.display='none'" style="background:transparent; border:1px solid #fff; color:#fff; padding:10px; width:100%; margin-top:10px; border-radius:5px; cursor:pointer;">FECHAR</button>
-    </div>
-</div>
-// Verifica se o usuário retornou de um pagamento (via URL)
-window.onload = function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('status')) { // Se a URL tiver algum parâmetro de status
-        liberarBotaoPagante();
-        
-        // Cria e mostra o link do app abaixo do botão de testemunho
-        const divLink = document.createElement('div');
-        divLink.style.marginTop = "20px";
-        divLink.innerHTML = `
-            <p style="color:#00ffcc;">Pagamento confirmado!</p>
-            <a href="SEU_LINK_DO_APP_AQUI" target="_blank" 
-               style="background:#fff; color:#0b1a2e; padding:15px; display:block; border-radius:10px; text-decoration:none; font-weight:bold;">
-               ACESSAR CADASTRO DO APP
-            </a>
-        `;
-        document.querySelector('.box').appendChild(divLink);
-    }
-};
-    // Monitora se o usuário voltou com sucesso e libera o acesso
-window.addEventListener('load', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('status') === 'sucesso') {
-        liberarBotaoPagante();
-        
-        const divLink = document.createElement('div');
-        divLink.style.marginTop = "20px";
-        divLink.innerHTML = `
-            <a href="SEU_LINK_DO_APP_AQUI" target="_blank" 
-               style="background:#00ffcc; color:#0b1a2e; padding:15px; display:block; border-radius:10px; text-decoration:none; font-weight:bold;">
-               ACESSAR APP AUTÔNOMOFÁCIL
-            </a>
-        `;
-        document.querySelector('.box').appendChild(divLink);
-    }
-});
-
-
+    // ÚNICA verificação ao carregar a página
+    window.addEventListener('load', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('status') === 'sucesso') {
+            liberarBotaoPagante();
+            const divLink = document.createElement('div');
+            divLink.style.marginTop = "20px";
+            divLink.innerHTML = `<a href="SEU_LINK_DO_APP" target="_blank" style="background:#00ffcc; padding:15px; display:block; border-radius:10px; text-decoration:none; color:#0b1a2e; font-weight:bold;">ACESSAR APP AUTÔNOMOFÁCIL</a>`;
+            document.querySelector('.box').appendChild(divLink);
+        }
+    });
 </script>
-    
 </body>
 </html>
