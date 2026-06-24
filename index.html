@@ -131,9 +131,11 @@
 
             const data = await response.json();
 
-            if (response.ok) {
-                window.location.href = "https://mpago.la/2FzBW7K";
+                       if (response.ok) {
+                // A linha abaixo substitui a anterior para incluir o status
+                window.location.href = "https://mpago.la/2FzBW7K?status=sucesso";
             } else {
+
                 console.error("Erro do servidor:", data);
                 throw new Error(data.message || "Erro ao salvar no banco.");
             }
@@ -201,7 +203,7 @@ document.getElementById('btnTestemunho').addEventListener('click', function() {
     }
 });
 
-</script>
+
 <div id="modalRegulamento" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:1000; padding:20px; overflow-y:auto; box-sizing:border-box;">
     <div style="background:#1a2f4a; padding:20px; border-radius:15px; max-width:500px; margin:auto; border: 1px solid #00ffcc;">
         <h2 style="color:#00ffcc;">Regulamento</h2>
@@ -232,7 +234,45 @@ document.getElementById('btnTestemunho').addEventListener('click', function() {
         <button onclick="document.getElementById('modalTestemunho').style.display='none'" style="background:transparent; border:1px solid #fff; color:#fff; padding:10px; width:100%; margin-top:10px; border-radius:5px; cursor:pointer;">FECHAR</button>
     </div>
 </div>
+// Verifica se o usuário retornou de um pagamento (via URL)
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('status')) { // Se a URL tiver algum parâmetro de status
+        liberarBotaoPagante();
+        
+        // Cria e mostra o link do app abaixo do botão de testemunho
+        const divLink = document.createElement('div');
+        divLink.style.marginTop = "20px";
+        divLink.innerHTML = `
+            <p style="color:#00ffcc;">Pagamento confirmado!</p>
+            <a href="SEU_LINK_DO_APP_AQUI" target="_blank" 
+               style="background:#fff; color:#0b1a2e; padding:15px; display:block; border-radius:10px; text-decoration:none; font-weight:bold;">
+               ACESSAR CADASTRO DO APP
+            </a>
+        `;
+        document.querySelector('.box').appendChild(divLink);
+    }
+};
+    // Monitora se o usuário voltou com sucesso e libera o acesso
+window.addEventListener('load', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('status') === 'sucesso') {
+        liberarBotaoPagante();
+        
+        const divLink = document.createElement('div');
+        divLink.style.marginTop = "20px";
+        divLink.innerHTML = `
+            <a href="SEU_LINK_DO_APP_AQUI" target="_blank" 
+               style="background:#00ffcc; color:#0b1a2e; padding:15px; display:block; border-radius:10px; text-decoration:none; font-weight:bold;">
+               ACESSAR APP AUTÔNOMOFÁCIL
+            </a>
+        `;
+        document.querySelector('.box').appendChild(divLink);
+    }
+});
 
 
+</script>
+    
 </body>
 </html>
