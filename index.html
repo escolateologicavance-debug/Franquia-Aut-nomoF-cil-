@@ -148,18 +148,7 @@
 
         if (response.ok) {
             alert("Testemunho enviado com sucesso!");
-            document.getElementById('modalTestemunho').style.display = 'none';
-        } else {
-            const err = await response.json();
-            console.error(err);
-            alert("Erro ao enviar: " + err.message);
-        }
-    } catch (e) {
-        alert("Erro de conexão com o banco de dados.");
-    } finally {
-        btn.innerText = "ENVIAR TESTEMUNHO";
-    }
-});
+            
 
 
     window.addEventListener('load', () => {
@@ -173,6 +162,18 @@
             document.querySelector('.box').appendChild(divLink);
         }
     });
+            document.getElementById('modalTestemunho').style.display = 'none';
+        } else {
+            const err = await response.json();
+            console.error(err);
+            alert("Erro ao enviar: " + err.message);
+        }
+    } catch (e) {
+        alert("Erro de conexão com o banco de dados.");
+    } finally {
+        btn.innerText = "ENVIAR TESTEMUNHO";
+    }
+});
 </script>
 </body>
 </html>
