@@ -115,8 +115,52 @@
         btnT.style.background = "#00ffcc";
         btnT.style.color = "#0b1a2e";
         btnT.style.cursor = "pointer";
-        btnT.onclick = () => document.getElementById('modalTestemunho').style.display = 'block';
+        btnT.onclick = () => document.getElementById('btnEnviarTestemunho').addEventListener('click', async () => {
+    // Pegando os valores dos inputs
+    const texto = document.getElementById('textoTestemunho').value;
+    const contatos = document.getElementById('dadosTestemunhas').value;
+    const nome_profissional = document.getElementById('nome').value;
+
+    if (texto.length < 100) { // Ajustei para 100 para testes, aumente se preferir
+        alert("Sua história precisa ser detalhada (mínimo 100 caracteres).");
+        return;
     }
+
+    const btn = document.getElementById('btnEnviarTestemunho');
+    btn.innerText = "Enviando...";
+
+    try {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/testemunhos`, {
+            method: "POST",
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`,
+                "Content-Type": "application/json",
+                "Prefer": "return=representation"
+            },
+            // IMPORTANTE: Os nomes aqui (à esquerda) precisam ser EXATAMENTE iguais aos da sua tabela
+            body: JSON.stringify({ 
+                nome_profissional: nome_profissional, 
+                texto: texto, 
+                contatos_testemunhas: contatos 
+            })
+        });
+
+        if (response.ok) {
+            alert("Testemunho enviado com sucesso!");
+            document.getElementById('modalTestemunho').style.display = 'none';
+        } else {
+            const err = await response.json();
+            console.error(err);
+            alert("Erro ao enviar: " + err.message);
+        }
+    } catch (e) {
+        alert("Erro de conexão com o banco de dados.");
+    } finally {
+        btn.innerText = "ENVIAR TESTEMUNHO";
+    }
+});
+
 
     window.addEventListener('load', () => {
         const urlParams = new URLSearchParams(window.location.search);
