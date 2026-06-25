@@ -77,11 +77,11 @@
         <button onclick="document.getElementById('modalTestemunho').style.display='none'" style="background:transparent; border:1px solid #fff; color:#fff; padding:10px; width:100%; margin-top:10px; border-radius:5px; cursor:pointer;">FECHAR</button>
     </div>
 </div>
-
 <script>
     const SUPABASE_URL = "https://xzhcujtqrfesfcfbpmsi.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6aGN1anRxcmZlc2ZjZmJwbXNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MzM1NDgsImV4cCI6MjA5NjEwOTU0OH0.eQS1iqV2WlJJfVkujk2y-b4mIDnnLzyFLpz4pOmjQeU";
 
+    // 1. Lógica do botão Pagar
     document.getElementById('btnPagar').addEventListener('click', async () => {
         const nome = document.getElementById('nome').value;
         const whatsapp = document.getElementById('whatsapp').value;
@@ -98,82 +98,85 @@
         } catch (error) { alert("Erro ao salvar."); }
     });
 
+    // 2. Função de copiar Pix
     async function salvarEcopiar() {
         const nome = document.getElementById('nome').value;
         const whatsapp = document.getElementById('whatsapp').value;
         if (!nome || !whatsapp) { alert("Preencha Nome e WhatsApp."); return; }
-        // ... (seu código de registro no Supabase)
         const copyText = document.getElementById("pixCode");
         copyText.select();
         document.execCommand("copy");
         alert("Chave Pix copiada!");
     }
 
+    // 3. Função que libera o botão (agora apenas abre o modal)
     function liberarBotaoPagante() {
         const btnT = document.getElementById('btnTestemunho');
         btnT.disabled = false;
         btnT.style.background = "#00ffcc";
         btnT.style.color = "#0b1a2e";
         btnT.style.cursor = "pointer";
-        btnT.onclick = () => document.getElementById('btnEnviarTestemunho').addEventListener('click', async () => {
-    // Pegando os valores dos inputs
-    const texto = document.getElementById('textoTestemunho').value;
-    const contatos = document.getElementById('dadosTestemunhas').value;
-    const nome_profissional = document.getElementById('nome').value;
-
-    if (texto.length < 100) { // Ajustei para 100 para testes, aumente se preferir
-        alert("Sua história precisa ser detalhada (mínimo 100 caracteres).");
-        return;
+        btnT.onclick = () => document.getElementById('modalTestemunho').style.display = 'block';
     }
 
-    const btn = document.getElementById('btnEnviarTestemunho');
-    btn.innerText = "Enviando...";
+    // 4. Lógica de Envio do Testemunho (SEPARADA)
+    document.getElementById('btnEnviarTestemunho').addEventListener('click', async () => {
+        const texto = document.getElementById('textoTestemunho').value;
+        const contatos = document.getElementById('dadosTestemunhas').value;
+        const nome_profissional = document.getElementById('nome').value;
 
-    try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/testemunhos`, {
-            method: "POST",
-            headers: {
-                "apikey": SUPABASE_KEY,
-                "Authorization": `Bearer ${SUPABASE_KEY}`,
-                "Content-Type": "application/json",
-                "Prefer": "return=representation"
-            },
-            // IMPORTANTE: Os nomes aqui (à esquerda) precisam ser EXATAMENTE iguais aos da sua tabela
-            body: JSON.stringify({ 
-                nome_profissional: nome_profissional, 
-                texto: texto, 
-                contatos_testemunhas: contatos 
-            })
-        });
+        if (texto.length < 100) {
+            alert("Sua história precisa ser detalhada (mínimo 100 caracteres).");
+            return;
+        }
 
-        if (response.ok) {
-            alert("Testemunho enviado com sucesso!");
-            
+        const btn = document.getElementById('btnEnviarTestemunho');
+        btn.innerText = "Enviando...";
 
+        try {
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/testemunhos`, {
+                method: "POST",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${SUPABASE_KEY}`,
+                    "Content-Type": "application/json",
+                    "Prefer": "return=representation"
+                },
+                body: JSON.stringify({ 
+                    nome_profissional: nome_profissional, 
+                    texto: texto, 
+                    contatos_testemunhas: contatos 
+                })
+            });
 
+            if (response.ok) {
+                alert("Testemunho enviado com sucesso!");
+                document.getElementById('modalTestemunho').style.display = 'none';
+            } else {
+                const err = await response.json();
+                alert("Erro ao enviar: " + err.message);
+            }
+        } catch (e) {
+            alert("Erro de conexão.");
+        } finally {
+            btn.innerText = "ENVIAR TESTEMUNHO";
+        }
+    });
+
+    // 5. Verificação ao carregar a página
     window.addEventListener('load', () => {
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('status') === 'sucesso') {
             liberarBotaoPagante();
             const divLink = document.createElement('div');
             divLink.style.marginTop = "20px";
-            divLink.innerHTML = `<a href="https://aut-nomo-f-cil-1-0.vercel.app/
-" target="_blank" style="background:#fff; color:#0b1a2e; padding:15px; display:block; border-radius:10px; text-decoration:none; font-weight:bold;">ACESSAR CADASTRO DO APP</a>`;
+            divLink.innerHTML = `<a href="https://aut-nomo-f-cil-1-0.vercel.app/" target="_blank" style="background:#fff; color:#0b1a2e; padding:15px; display:block; border-radius:10px; text-decoration:none; font-weight:bold;">ACESSAR CADASTRO DO APP</a>`;
             document.querySelector('.box').appendChild(divLink);
         }
     });
-            document.getElementById('modalTestemunho').style.display = 'none';
-        } else {
-            const err = await response.json();
-            console.error(err);
-            alert("Erro ao enviar: " + err.message);
-        }
-    } catch (e) {
-        alert("Erro de conexão com o banco de dados.");
-    } finally {
-        btn.innerText = "ENVIAR TESTEMUNHO";
-    }
-});
 </script>
+    
+
+
 </body>
 </html>
