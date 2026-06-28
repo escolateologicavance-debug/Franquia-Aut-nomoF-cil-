@@ -166,16 +166,74 @@
     });
 
     // 5. Verificação ao carregar a página
-    window.addEventListener('load', () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('status') === 'sucesso') {
-            liberarBotaoPagante();
-            const divLink = document.createElement('div');
-            divLink.style.marginTop = "20px";
-            divLink.innerHTML = `<a href="https://aut-nomo-f-cil-1-0.vercel.app/" target="_blank" style="background:#fff; color:#0b1a2e; padding:15px; display:block; border-radius:10px; text-decoration:none; font-weight:bold;">ACESSAR CADASTRO DO APP</a>`;
-            document.querySelector('.box').appendChild(divLink);
-        }
-    });
+    const verificarPagamento = async () => {
+
+
+const whatsapp = localStorage.getItem('seu_whatsapp_salvo');
+
+
+if (!whatsapp) return;
+
+
+​const { data } = await supabase
+
+
+.from('pagamentos_sorteio')
+
+
+.select('status')
+
+
+.eq('whatsapp', whatsapp)
+
+
+.single();
+
+
+​if (data && data.status === 'Pago') {
+
+
+liberarBotaoPagante();
+
+
+if (!document.getElementById('linkAcesso')) {
+
+
+const divLink = document.createElement('div');
+
+
+divLink.id = 'linkAcesso';
+
+
+divLink.style.marginTop = "20px";
+
+
+divLink.innerHTML = <a href="[https://aut-nomo-f-cil-1-0.vercel.app/](https://aut-nomo-f-cil-1-0.vercel.app/)" target="_blank" style="background:#fff; color:#0b1a2e; padding:15px; display:block; border-radius:10px; text-decoration:none; font-weight:bold;">ACESSAR CADASTRO DO APP</a>;
+
+
+document.querySelector('.box').appendChild(divLink);
+
+
+}
+
+
+}
+
+
+};
+
+
+​window.addEventListener('load', () => {
+
+
+verificarPagamento();
+
+
+setInterval(verificarPagamento, 5000);
+
+
+});
+    
 </script>
     
 
