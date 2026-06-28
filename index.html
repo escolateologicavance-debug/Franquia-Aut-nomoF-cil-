@@ -82,9 +82,14 @@
     </div>
 </div>
 <script>
-     const SUPABASE_URL = "https://xzhcujtqrfesfcfbpmsi.supabase.co";
+        // Corrigindo a inicialização para usar o objeto exposto pela CDN
+    const SUPABASE_URL = "https://xzhcujtqrfesfcfbpmsi.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6aGN1anRxcmZlc2ZjZmJwbXNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MzM1NDgsImV4cCI6MjA5NjEwOTU0OH0.eQS1iqV2WlJJfVkujk2y-b4mIDnnLzyFLpz4pOmjQeU";
     
+    // O objeto global é 'supabase' (minúsculo) e o método é 'createClient'
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+     
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
            
     // 1. Lógica do botão Pagar
