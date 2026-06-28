@@ -82,32 +82,35 @@
     </div>
 </div>
 <script>
-    const supabase = supabase.createClient("https://xzhcujtqrfesfcfbpmsi.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6aGN1anRxcmZlc2ZjZmJwbXNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MzM1NDgsImV4cCI6MjA5NjEwOTU0OH0.eQS1iqV2WlJJfVkujk2y-b4mIDnnLzyFLpz4pOmjQeU");
-
+     const SUPABASE_URL = "https://xzhcujtqrfesfcfbpmsi.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6aGN1anRxcmZlc2ZjZmJwbXNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MzM1NDgsImV4cCI6MjA5NjEwOTU0OH0.eQS1iqV2WlJJfVkujk2y-b4mIDnnLzyFLpz4pOmjQeU";
     
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+           
     // 1. Lógica do botão Pagar
-        document.getElementById('btnPagar').addEventListener('click', async () => {
+    document.getElementById('btnPagar').addEventListener('click', async () => {
         const nome = document.getElementById('nome').value;
         const whatsapp = document.getElementById('whatsapp').value;
         if (!nome || !whatsapp) { alert("Preencha todos os campos."); return; }
         
-        // SALVA O WHATSAPP NO NAVEGADOR
         localStorage.setItem('meu_whatsapp', whatsapp); 
 
         const btn = document.getElementById('btnPagar');
         btn.innerText = "Salvando...";
-        try {
-            const response = await fetch(`${SUPABASE_URL}/rest/v1/pagamentos_sorteio`, {
-                method: "POST",
-                headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}`, "Content-Type": "application/json", "Prefer": "return=representation" },
-                body: JSON.stringify({ nome, whatsapp, status: "Pendente" })
-            });
-            if (response.ok) { window.location.href = "https://mpago.la/2FzBW7K?status=sucesso"; }
-        } catch (error) { alert("Erro ao salvar."); }
+        
+        const { data, error } = await supabase
+            .from('pagamentos_sorteio')
+            .insert([{ nome, whatsapp, status: "Pendente" }]);
+
+        if (!error) { 
+            window.location.href = "https://mpago.la/2FzBW7K?status=sucesso"; 
+        } else { 
+            alert("Erro ao salvar: " + error.message);
+            btn.innerText = "PAGAR COM PIX";
+        }
     });
-
     
-
+        
     // 2. Função de copiar Pix
     async function salvarEcopiar() {
         const nome = document.getElementById('nome').value;
@@ -143,35 +146,20 @@
         const btn = document.getElementById('btnEnviarTestemunho');
         btn.innerText = "Enviando...";
 
-        try {
-            const response = await fetch(`${SUPABASE_URL}/rest/v1/testemunhos`, {
-                method: "POST",
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization": `Bearer ${SUPABASE_KEY}`,
-                    "Content-Type": "application/json",
-                    "Prefer": "return=representation"
-                },
-                body: JSON.stringify({ 
-                    nome_profissional: nome_profissional, 
-                    texto: texto, 
-                    contatos_testemunhas: contatos 
-                })
-            });
+        const { error } = await supabase
+            .from('testemunhos')
+            .insert([{ nome_profissional, texto, contatos_testemunhas: contatos }]);
 
-            if (response.ok) {
-                alert("Testemunho enviado com sucesso!");
-                document.getElementById('modalTestemunho').style.display = 'none';
-            } else {
-                const err = await response.json();
-                alert("Erro ao enviar: " + err.message);
-            }
-        } catch (e) {
-            alert("Erro de conexão.");
-        } finally {
-            btn.innerText = "ENVIAR TESTEMUNHO";
+        if (!error) {
+            alert("Testemunho enviado com sucesso!");
+            document.getElementById('modalTestemunho').style.display = 'none';
+        } else {
+            alert("Erro ao enviar: " + error.message);
         }
+        btn.innerText = "ENVIAR TESTEMUNHO";
     });
+    
+
 
     // 5. Verificação ao carregar a página
         const verificarPagamento = async () => {
