@@ -19,6 +19,8 @@
         button { background: #00ffcc; padding: 18px; border: none; border-radius: 10px; width: 100%; font-weight: bold; font-size: 1.1rem; color: #0b1a2e; cursor: pointer; margin-top: 15px; }
     </style>
 </head>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
 <body>
 
 <div class="container">
@@ -80,14 +82,18 @@
     </div>
 </div>
 <script>
-    const SUPABASE_URL = "https://xzhcujtqrfesfcfbpmsi.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6aGN1anRxcmZlc2ZjZmJwbXNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MzM1NDgsImV4cCI6MjA5NjEwOTU0OH0.eQS1iqV2WlJJfVkujk2y-b4mIDnnLzyFLpz4pOmjQeU";
+    const supabase = supabase.createClient("https://xzhcujtqrfesfcfbpmsi.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6aGN1anRxcmZlc2ZjZmJwbXNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MzM1NDgsImV4cCI6MjA5NjEwOTU0OH0.eQS1iqV2WlJJfVkujk2y-b4mIDnnLzyFLpz4pOmjQeU");
 
+    
     // 1. Lógica do botão Pagar
-    document.getElementById('btnPagar').addEventListener('click', async () => {
+        document.getElementById('btnPagar').addEventListener('click', async () => {
         const nome = document.getElementById('nome').value;
         const whatsapp = document.getElementById('whatsapp').value;
         if (!nome || !whatsapp) { alert("Preencha todos os campos."); return; }
+        
+        // SALVA O WHATSAPP NO NAVEGADOR
+        localStorage.setItem('meu_whatsapp', whatsapp); 
+
         const btn = document.getElementById('btnPagar');
         btn.innerText = "Salvando...";
         try {
@@ -99,6 +105,8 @@
             if (response.ok) { window.location.href = "https://mpago.la/2FzBW7K?status=sucesso"; }
         } catch (error) { alert("Erro ao salvar."); }
     });
+
+    
 
     // 2. Função de copiar Pix
     async function salvarEcopiar() {
@@ -166,73 +174,34 @@
     });
 
     // 5. Verificação ao carregar a página
-    const verificarPagamento = async () => {
+        const verificarPagamento = async () => {
+        const whatsapp = localStorage.getItem('meu_whatsapp');
+        if (!whatsapp) return;
 
+        const { data } = await supabase
+            .from('pagamentos_sorteio')
+            .select('status')
+            .eq('whatsapp', whatsapp)
+            .single();
 
-const whatsapp = localStorage.getItem('seu_whatsapp_salvo');
+        if (data && data.status === 'Pago') {
+            liberarBotaoPagante();
+            if (!document.getElementById('linkAcesso')) {
+                const divLink = document.createElement('div');
+                divLink.id = 'linkAcesso';
+                divLink.style.marginTop = "20px";
+                divLink.innerHTML = `<a href="https://aut-nomo-f-cil-1-0.vercel.app/" target="_blank" style="background:#fff; color:#0b1a2e; padding:15px; display:block; border-radius:10px; text-decoration:none; font-weight:bold;">ACESSAR CADASTRO DO APP</a>`;
+                document.querySelector('.box').appendChild(divLink);
+            }
+        }
+    };
 
+    window.addEventListener('load', () => {
+        verificarPagamento();
+        setInterval(verificarPagamento, 5000);
+    });
 
-if (!whatsapp) return;
-
-
-​const { data } = await supabase
-
-
-.from('pagamentos_sorteio')
-
-
-.select('status')
-
-
-.eq('whatsapp', whatsapp)
-
-
-.single();
-
-
-​if (data && data.status === 'Pago') {
-
-
-liberarBotaoPagante();
-
-
-if (!document.getElementById('linkAcesso')) {
-
-
-const divLink = document.createElement('div');
-
-
-divLink.id = 'linkAcesso';
-
-
-divLink.style.marginTop = "20px";
-
-
-divLink.innerHTML = <a href="[https://aut-nomo-f-cil-1-0.vercel.app/](https://aut-nomo-f-cil-1-0.vercel.app/)" target="_blank" style="background:#fff; color:#0b1a2e; padding:15px; display:block; border-radius:10px; text-decoration:none; font-weight:bold;">ACESSAR CADASTRO DO APP</a>;
-
-
-document.querySelector('.box').appendChild(divLink);
-
-
-}
-
-
-}
-
-
-};
-
-
-​window.addEventListener('load', () => {
-
-
-verificarPagamento();
-
-
-setInterval(verificarPagamento, 5000);
-
-
-});
+    
     
 </script>
     
