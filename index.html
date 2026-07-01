@@ -9,6 +9,22 @@
     <link rel="icon" type="image/png" sizes="512x512" href="logo-512.png">
    
     <style>
+        #regulamento {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0b1a2e;
+    color: #fff;
+    z-index: 9999;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    text-align: left;
+}
+
         body { font-family: 'Segoe UI', sans-serif; background: #0b1a2e; color: #fff; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
         .container { width: 100%; max-width: 450px; text-align: center; }
         .flyer-img { width: 100%; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
@@ -37,19 +53,7 @@
             <p style="color: #333; font-size: 0.9rem;">Se o botão acima falhar, use nossa chave Pix manual:</p>
             <textarea id="pixCode" readonly style="width:100%; height:50px; font-size: 12px;">00020126520014br.gov.bcb.pix0130escolateologicavance@gmail.com520400005303986540579.005802BR5910KOISAETALL6008Itanhang62250521mpqrinter16503033402263040941</textarea>
             <button onclick="salvarEcopiar()" style="width:100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Copiar Chave Pix</button>
-        </div>
-          <p style="font-size: 0.8rem; margin-top: 15px; color: #ccc;">
-            Ao ativar, você concorda com nossos Termos. 
-          <span onclick="toggleRegulamento()" style="color:#00ffcc; text-decoration:underline; cursor:pointer;">Leia o Regulamento aqui.</span>
-        </p>
-        
-        <button id="btnTestemunho" style="background: #444; color: #aaa; cursor: not-allowed;" disabled>CONTE-NOS SEU TESTEMUNHO</button>
-    </div>
-
-    
-    <div id="regulamento" style="display:none;">
-    
-        <p><strong>1. Caráter da Ação:</strong> Esta ação consiste em um concurso de mérito e escrita criativa, denominado "O Desafio do Autônomo", promovido no âmbito da assinatura anual do aplicativo AutônomoFácil, no valor de R$ 79,00. A assinatura anual remunera exclusivamente o acesso aos serviços disponibilizados pela plataforma. O concurso possui natureza acessória à assinatura e será conduzido com fundamento nos artigos 854 a 860 do Código Civil, relativos à Promessa de Recompensa por Concurso, observadas as disposições legais aplicáveis. A seleção do vencedor ocorrerá exclusivamente mediante avaliação do mérito dos relatos apresentados, não envolvendo sorteio, loteria, distribuição aleatória de prêmios ou qualquer elemento de azar.</p>
+     <p><strong>1. Caráter da Ação:</strong> Esta ação consiste em um concurso de mérito e escrita criativa, denominado "O Desafio do Autônomo", promovido no âmbito da assinatura anual do aplicativo AutônomoFácil, no valor de R$ 79,00. A assinatura anual remunera exclusivamente o acesso aos serviços disponibilizados pela plataforma. O concurso possui natureza acessória à assinatura e será conduzido com fundamento nos artigos 854 a 860 do Código Civil, relativos à Promessa de Recompensa por Concurso, observadas as disposições legais aplicáveis. A seleção do vencedor ocorrerá exclusivamente mediante avaliação do mérito dos relatos apresentados, não envolvendo sorteio, loteria, distribuição aleatória de prêmios ou qualquer elemento de azar.</p>
 <p><strong>2. Ativação da Meta:</strong> A avaliação das participações e a disponibilização da premiação ficam condicionadas ao alcance da meta mínima de 400 (quatrocentas) assinaturas anuais pagas e ativas. Caso a meta não seja alcançada, a administração divulgará aos participantes as providências referentes à continuidade, prorrogação ou encerramento da presente ação.</p>
 <p><strong>3. Mecânica de Participação:</strong> Após a confirmação do pagamento da assinatura anual, o participante terá acesso ao formulário oficial para envio de seu testemunho. O relato deverá retratar fatos relacionados à sua trajetória como profissional autônomo, podendo abordar desafios profissionais, ações solidárias, superação de acidentes, dificuldades financeiras, recomeços, transição do regime CLT para o trabalho autônomo ou outras experiências relevantes de sua história.</p>
 <p><strong>4. Critérios de Avaliação e Verificação:</strong><br>
@@ -65,8 +69,7 @@
 <p><strong>6. Entrega da Premiação:</strong> A motocicleta será disponibilizada ao vencedor no município de Itanhangá-MT, livre das despesas de transferência de propriedade e do primeiro emplacamento. As despesas de deslocamento, hospedagem, transporte ou frete para retirada do veículo serão de responsabilidade do participante contemplado.</p>
 <p><strong>7. Uso de Nome, Imagem e Relato:</strong> O participante vencedor autoriza a utilização de seu nome, imagem, voz e relato para fins de divulgação institucional do concurso e do aplicativo AutônomoFácil, em qualquer meio de comunicação, sem exclusividade e sem remuneração adicional, observada a legislação aplicável.</p>
 <p><strong>8. Disposições Finais:</strong> Ao concluir a assinatura anual, o participante declara ter lido e concordado com este regulamento. Eventuais omissões ou situações não previstas serão analisadas pela administração do AutônomoFácil, observadas as normas legais aplicáveis. Fica eleito o foro da Comarca de Tapurah-MT para dirimir eventuais controvérsias decorrentes deste regulamento, ressalvadas as hipóteses de competência previstas em lei.</p>
- <button onclick="document.getElementById('regulamento').style.display='none'" style="background:#00ffcc; color:#0b1a2e; padding:10px; border:none; border-radius:5px; width:100%; cursor:pointer; font-weight:bold;">Fechar</button>       
-        
+ <button onclick="document.getElementById('regulamento').style.display='none'" style="background:#00ffcc; color:#0b1a2e; padding:10px; border:none; border-radius:5px; width:100%; cursor:pointer; font-weight:bold;">Fechar</button>            
     </div>
 </div>
 <div id="modalTestemunho" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; padding:20px; overflow-y:auto;">
