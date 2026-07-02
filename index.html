@@ -190,14 +190,12 @@
             }
         }
     };
-function toggleRegulamento() {
-    const r = document.getElementById("regulamento");
+    function toggleRegulamento() {
+    const r = document.getElementById("div-regulamento");
+    r.style.display = (r.style.display === "none" || r.style.display === "") ? "block" : "none";
+}
 
-    if (r.style.display === "none") {
-        r.style.display = "block";
-    } else {
-        r.style.display = "none";
-    }
+
 }
     window.addEventListener('load', () => {
         verificarPagamento();
