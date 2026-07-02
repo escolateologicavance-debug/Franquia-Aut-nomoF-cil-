@@ -63,8 +63,10 @@
     <button id="btnTestemunho" disabled style="background:#444; color:#fff; padding:18px; border:none; border-radius:10px; width:100%; font-weight:bold; font-size:1.1rem; cursor:not-allowed; margin-top:15px;">CONTE-NOS SEU TESTEMUNHO</button>
 
 <div id="modalTestemunho">
+    
   
-    ​<div id="regulamento">
+    ​
+<div id="div-regulamento">
         <p><strong>1. Caráter da Ação:</strong> Esta ação consiste em um concurso de mérito e escrita criativa, denominado "O Desafio do Autônomo", promovido no âmbito da assinatura anual do aplicativo AutônomoFácil, no valor de R$ 79,00. A assinatura anual remunera exclusivamente o acesso aos serviços disponibilizados pela plataforma. O concurso possui natureza acessória à assinatura e será conduzido com fundamento nos artigos 854 a 860 do Código Civil, relativos à Promessa de Recompensa por Concurso, observadas as disposições legais aplicáveis. A seleção do vencedor ocorrerá exclusivamente mediante avaliação do mérito dos relatos apresentados, não envolvendo sorteio, loteria, distribuição aleatória de prêmios ou qualquer elemento de azar.</p>
         <p><strong>2. Ativação da Meta:</strong> A avaliação das participações e a disponibilização da premiação ficam condicionadas ao alcance da meta mínima de 400 (quatrocentas) assinaturas anuais pagas e ativas. Caso a meta não seja alcançada, a administração divulgará aos participantes as providências referentes à continuidade, prorrogação ou encerramento da presente ação.</p>
         <p><strong>3. Mecânica de Participação:</strong> Após a confirmação do pagamento da assinatura anual, o participante terá acesso ao formulário oficial para envio de seu testemunho. O relato deverá retratar fatos relacionados à sua trajetória como profissional autônomo, podendo abordar desafios profissionais, ações solidárias, superação de acidentes, dificuldades financeiras, recomeços, transição do regime CLT para o trabalho autônomo ou outras experiências relevantes de sua história.</p>
@@ -195,8 +197,6 @@
     r.style.display = (r.style.display === "none" || r.style.display === "") ? "block" : "none";
 }
 
-
-}
     window.addEventListener('load', () => {
         verificarPagamento();
         setInterval(verificarPagamento, 5000);
