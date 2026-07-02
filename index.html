@@ -53,7 +53,25 @@
             <p style="color: #333; font-size: 0.9rem;">Se o botão acima falhar, use nossa chave Pix manual:</p>
             <textarea id="pixCode" readonly style="width:100%; height:50px; font-size: 12px;">00020126520014br.gov.bcb.pix0130escolateologicavance@gmail.com520400005303986540579.005802BR5910KOISAETALL6008Itanhang62250521mpqrinter16503033402263040941</textarea>
                         <button onclick="salvarEcopiar()" style="width:100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Copiar Chave Pix</button>
-<div id="regulamento"><div style="max-width: 600px; margin: auto; padding: 20px;"><h2>Regulamento</h2>
+
+</div>
+ <p style="font-size: 0.8rem; margin-top: 15px; color: #ccc;">
+    Ao ativar, você concorda com nossos Termos. 
+    <span onclick="toggleRegulamento()" style="color:#00ffcc; text-decoration:underline; cursor:pointer;">Leia o Regulamento aqui.</span>
+</p>
+</div>           
+       
+<div id="modalTestemunho" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; padding:20px; overflow-y:auto;">
+    <div style="background:#1a2f4a; padding:20px; border-radius:15px; max-width:450px; margin:auto; border: 1px solid #00ffcc;">
+        <h2 style="color:#00ffcc; font-size: 1.2rem;">Sua jornada merece ser reconhecida.</h2>
+        <textarea id="textoTestemunho" placeholder="Conte sua história aqui..." style="width:100%; height:150px; border-radius:10px; margin: 10px 0; padding: 10px;"></textarea>
+        <input type="text" id="dadosTestemunhas" placeholder="Seu WhatsApp ou contato das testemunhas" style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px; border:none; box-sizing:border-box;">
+        <button id="btnEnviarTestemunho" style="background:#00ffcc; color:#0b1a2e; padding:10px; width:100%; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">ENVIAR TESTEMUNHO</button>
+        <button onclick="document.getElementById('modalTestemunho').style.display='none'" style="background:transparent; border:1px solid #fff; color:#fff; padding:10px; width:100%; margin-top:10px; border-radius:5px; cursor:pointer;">FECHAR</button>
+    </div>
+    
+ </div>
+    <div id="regulamento"><div style="max-width: 600px; margin: auto; padding: 20px;"><h2>Regulamento</h2>
         <p><strong>1. Caráter da Ação:</strong> Esta ação consiste em um concurso de mérito e escrita criativa, denominado "O Desafio do Autônomo", promovido no âmbito da assinatura anual do aplicativo AutônomoFácil, no valor de R$ 79,00. A assinatura anual remunera exclusivamente o acesso aos serviços disponibilizados pela plataforma. O concurso possui natureza acessória à assinatura e será conduzido com fundamento nos artigos 854 a 860 do Código Civil, relativos à Promessa de Recompensa por Concurso, observadas as disposições legais aplicáveis. A seleção do vencedor ocorrerá exclusivamente mediante avaliação do mérito dos relatos apresentados, não envolvendo sorteio, loteria, distribuição aleatória de prêmios ou qualquer elemento de azar.</p>
         <p><strong>2. Ativação da Meta:</strong> A avaliação das participações e a disponibilização da premiação ficam condicionadas ao alcance da meta mínima de 400 (quatrocentas) assinaturas anuais pagas e ativas. Caso a meta não seja alcançada, a administração divulgará aos participantes as providências referentes à continuidade, prorrogação ou encerramento da presente ação.</p>
         <p><strong>3. Mecânica de Participação:</strong> Após a confirmação do pagamento da assinatura anual, o participante terá acesso ao formulário oficial para envio de seu testemunho. O relato deverá retratar fatos relacionados à sua trajetória como profissional autônomo, podendo abordar desafios profissionais, ações solidárias, superação de acidentes, dificuldades financeiras, recomeços, transição do regime CLT para o trabalho autônomo ou outras experiências relevantes de sua história.</p>
@@ -72,23 +90,7 @@
         <p><strong>8. Disposições Finais:</strong> Ao concluir a assinatura anual, o participante declara ter lido e concordado com este regulamento. Eventuais omissões ou situações não previstas serão analisadas pela administração do AutônomoFácil, observadas as normas legais aplicáveis. Fica eleito o foro da Comarca de Tapurah-MT para dirimir eventuais controvérsias decorrentes deste regulamento, ressalvadas as hipóteses de competência previstas em lei.</p>
         <button onclick="document.getElementById('regulamento').style.display='none'" style="background:#00ffcc; color:#0b1a2e; padding:15px; border:none; border-radius:5px; width:100%; cursor:pointer; font-weight:bold;">Fechar</button>
     </div>
-</div>
- <p style="font-size: 0.8rem; margin-top: 15px; color: #ccc;">
-    Ao ativar, você concorda com nossos Termos. 
-    <span onclick="toggleRegulamento()" style="color:#00ffcc; text-decoration:underline; cursor:pointer;">Leia o Regulamento aqui.</span>
-</p>
-</div>           
-       
-<div id="modalTestemunho" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; padding:20px; overflow-y:auto;">
-    <div style="background:#1a2f4a; padding:20px; border-radius:15px; max-width:450px; margin:auto; border: 1px solid #00ffcc;">
-        <h2 style="color:#00ffcc; font-size: 1.2rem;">Sua jornada merece ser reconhecida.</h2>
-        <textarea id="textoTestemunho" placeholder="Conte sua história aqui..." style="width:100%; height:150px; border-radius:10px; margin: 10px 0; padding: 10px;"></textarea>
-        <input type="text" id="dadosTestemunhas" placeholder="Seu WhatsApp ou contato das testemunhas" style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px; border:none; box-sizing:border-box;">
-        <button id="btnEnviarTestemunho" style="background:#00ffcc; color:#0b1a2e; padding:10px; width:100%; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">ENVIAR TESTEMUNHO</button>
-        <button onclick="document.getElementById('modalTestemunho').style.display='none'" style="background:transparent; border:1px solid #fff; color:#fff; padding:10px; width:100%; margin-top:10px; border-radius:5px; cursor:pointer;">FECHAR</button>
-    </div>
-    
- </div>.
+        
 
 
     
